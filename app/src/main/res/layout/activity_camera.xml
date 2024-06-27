@@ -39,12 +39,35 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="40dp"
         android:contentDescription="select image button"
-        android:scaleType="centerCrop"
         android:src="@drawable/ic_launcher_background"
         android:text="Select Image"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/buttonCamera" />
 
+    <Button
+        android:id="@+id/buttonSelectFromGallery"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:contentDescription="Select image button"
+        android:src="@drawable/ic_launcher_background"
+        android:text="Select Image from gallery"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/buttonGallery" />
+
+
+    <Button
+        android:id="@+id/buttonUploadToServer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:contentDescription="Upload to ToySwap button"
+        android:src="@drawable/ic_launcher_background"
+        android:text="Upload to ToySwap"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/buttonSelectFromGallery" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
