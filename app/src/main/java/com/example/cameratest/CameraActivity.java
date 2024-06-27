@@ -26,8 +26,10 @@ public class CameraActivity extends AppCompatActivity {
     Button buttonGallery;
 
     Button buttonUpload;
+    Button buttonUploadToServer;
 
     Bitmap bitmap;
+    Bitmap selectedBitmap;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,7 +64,26 @@ public class CameraActivity extends AppCompatActivity {
             }
         });
 
+        buttonUploadToServer = findViewById(R.id.buttonUploadToServer);
+        buttonUploadToServer.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                uploadImageToServer(view);
+            }
+        });
+
     } // end of onCreate
+
+    private void uploadImageToServer(View view) {
+
+        ByteArrayOutputStream stream = new ByteArrayOutputStream();
+        if(selectedBitmap != null) {
+            selectedBitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
+            Toast.makeText(this, "Image uploaded", Toast.LENGTH_SHORT).show();
+        } else {
+            Toast.makeText(this, "Image not selected", Toast.LENGTH_SHORT).show();
+        }
+    }
 
     public void openCamera() {
         Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
@@ -113,8 +134,8 @@ public class CameraActivity extends AppCompatActivity {
                         assert data != null;
                         Uri imageUri = data.getData();
                         try {
-                            bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), imageUri);
-                            imageView.setImageBitmap(bitmap);
+                            selectedBitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), imageUri);
+                            imageView.setImageBitmap(selectedBitmap);
                         } catch (IOException e) {
                             throw new RuntimeException(e);
                         }
