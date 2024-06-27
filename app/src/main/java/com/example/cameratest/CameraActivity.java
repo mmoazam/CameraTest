@@ -16,7 +16,7 @@ import android.os.Bundle;
 
 public class CameraActivity extends AppCompatActivity {
 
-    ImageView imageCamera;
+    ImageView imageView;
     Button buttonCamera;
 
     Button buttonGallery;
@@ -26,13 +26,13 @@ public class CameraActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_camera);
 
-        imageCamera = findViewById(R.id.cameraImage);
+        imageView = findViewById(R.id.cameraImage);
         buttonCamera = findViewById(R.id.buttonCamera);
 
         buttonCamera.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                imageCamera.setImageResource(R.drawable.ic_launcher_background);
+                imageView.setImageResource(R.drawable.ic_launcher_background);
                 openCamera();
             }
         });
@@ -65,7 +65,7 @@ public class CameraActivity extends AppCompatActivity {
                                 Bundle bundle = result.getData().getExtras();
                                 Bitmap bitmap = (Bitmap) bundle.get("data");
                                 bitmap.compress(Bitmap.CompressFormat.PNG, 100, null);
-                                imageCamera.setImageBitmap(bitmap);
+                                imageView.setImageBitmap(bitmap);
                             }
                         }
                     });
@@ -81,7 +81,7 @@ public class CameraActivity extends AppCompatActivity {
                 public void onActivityResult(ActivityResult result) {
                     assert result.getData() != null;
                     Uri imageUri = result.getData().getData();
-                    imageCamera.setImageURI(imageUri);
+                    imageView.setImageURI(imageUri);
                 }
             });
 
