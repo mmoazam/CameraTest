@@ -2,6 +2,7 @@ package com.example.cameratest;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.net.Uri;
 import android.provider.MediaStore;
 import android.view.View;
 import android.widget.Button;
@@ -18,6 +19,8 @@ public class CameraActivity extends AppCompatActivity {
     ImageView imageCamera;
     Button buttonCamera;
 
+    Button buttonGallery;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -33,6 +36,17 @@ public class CameraActivity extends AppCompatActivity {
                 openCamera();
             }
         });
+
+
+        buttonGallery = findViewById(R.id.buttonGallery);
+
+        buttonGallery.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                openGallery(view);
+            }
+        });
+
     } // end of onCreate
 
     public void openCamera() {
@@ -43,22 +57,32 @@ public class CameraActivity extends AppCompatActivity {
     ActivityResultLauncher<Intent> cameraLauncher =
             registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),
                     new ActivityResultCallback<ActivityResult>() {
-        @Override
-        public void onActivityResult(ActivityResult result) {
+                        @Override
+                        public void onActivityResult(ActivityResult result) {
 
-            if (result.getResultCode() == RESULT_OK) {
-                assert result.getData() != null;
-                Bundle bundle = result.getData().getExtras();
-                Bitmap bitmap = (Bitmap) bundle.get("data");
-                imageCamera.setImageBitmap(bitmap);
-            }
-        }
-    });
+                            if (result.getResultCode() == RESULT_OK) {
+                                assert result.getData() != null;
+                                Bundle bundle = result.getData().getExtras();
+                                Bitmap bitmap = (Bitmap) bundle.get("data");
+                                bitmap.compress(Bitmap.CompressFormat.PNG, 100, null);
+                                imageCamera.setImageBitmap(bitmap);
+                            }
+                        }
+                    });
 
     public void openGallery(View view) {
         Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.INTERNAL_CONTENT_URI);
-        startActivity(intent);
+        galleryLauncher.launch(intent);
     }
 
+    ActivityResultLauncher<Intent> galleryLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),
+            new ActivityResultCallback<ActivityResult>() {
+                @Override
+                public void onActivityResult(ActivityResult result) {
+                    assert result.getData() != null;
+                    Uri imageUri = result.getData().getData();
+                    imageCamera.setImageURI(imageUri);
+                }
+            });
 
 } // end of CameraActivity
