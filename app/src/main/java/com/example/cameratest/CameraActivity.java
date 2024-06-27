@@ -76,6 +76,7 @@ public class CameraActivity extends AppCompatActivity {
 
             byte[] byteArray = stream.toByteArray();
             String encodedImage = android.util.Base64.encodeToString(byteArray, android.util.Base64.DEFAULT);
+
             // write the encoded image to a file
 
 
