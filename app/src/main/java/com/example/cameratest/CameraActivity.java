@@ -48,14 +48,6 @@ public class CameraActivity extends AppCompatActivity {
         });
 
 
-        buttonGallery = findViewById(R.id.buttonGallery);
-        buttonGallery.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                openGallery(view);
-            }
-        });
-
         buttonUpload = findViewById(R.id.buttonSelectFromGallery);
         buttonUpload.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -106,20 +98,7 @@ public class CameraActivity extends AppCompatActivity {
                         }
                     });
 
-    public void openGallery(View view) {
-        Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.INTERNAL_CONTENT_URI);
-        galleryLauncher.launch(intent);
-    }
 
-    ActivityResultLauncher<Intent> galleryLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),
-            new ActivityResultCallback<ActivityResult>() {
-                @Override
-                public void onActivityResult(ActivityResult result) {
-                    assert result.getData() != null;
-                    Uri imageUri = result.getData().getData();
-                    imageView.setImageURI(imageUri);
-                }
-            });
 
     public void uploadImage(View view) {
         Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
