@@ -100,6 +100,7 @@ public class CameraActivity extends AppCompatActivity {
                                 assert result.getData() != null;
                                 Bundle bundle = result.getData().getExtras();
                                 bitmap = (Bitmap) bundle.get("data");
+                                selectedBitmap = bitmap;
                                 imageView.setImageBitmap(bitmap);
                             }
                         }
