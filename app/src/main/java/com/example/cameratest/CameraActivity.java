@@ -18,6 +18,8 @@ import android.os.Bundle;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 
+import static java.sql.DriverManager.println;
+
 public class CameraActivity extends AppCompatActivity {
 
     ImageView imageView;
@@ -71,6 +73,12 @@ public class CameraActivity extends AppCompatActivity {
         ByteArrayOutputStream stream = new ByteArrayOutputStream();
         if(selectedBitmap != null) {
             selectedBitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
+
+            byte[] byteArray = stream.toByteArray();
+            String encodedImage = android.util.Base64.encodeToString(byteArray, android.util.Base64.DEFAULT);
+            // write the encoded image to a file
+
+
             Toast.makeText(this, "Image uploaded", Toast.LENGTH_SHORT).show();
         } else {
             Toast.makeText(this, "Image not selected", Toast.LENGTH_SHORT).show();
